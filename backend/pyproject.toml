@@ -1,0 +1,10 @@
+[project]
+name = "homebox-backend"
+version = "1.0.0"
+description = "HomeBox Backend - Smart Home Inventory Management API"
+readme = "README.md"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]

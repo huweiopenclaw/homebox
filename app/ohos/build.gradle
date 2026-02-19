@@ -1,0 +1,24 @@
+# Ohos Build Configuration for HomeBox
+# This file is for HarmonyOS (OpenHarmony) platform support
+
+import ohos.build.*
+
+apply plugin: 'com.huawei.ohos.app'
+
+ohos {
+    compileSdkVersion 5
+    defaultConfig {
+        compatibleSdkVersion 5
+    }
+    
+    buildTypes {
+        release {
+            proguardOptimize true
+            proguardFiles 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.har'])
+}
