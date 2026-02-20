@@ -77,7 +77,7 @@ class _BoxDetailPageState extends ConsumerState<BoxDetailPage> {
                 final items = [
                   {'name': '红色毛衣', 'quantity': 2},
                   {'name': '灰色围巾', 'quantity': 1},
-                  {'name': '毛线帽', 'quantity': 1},
+                  {'name': '毛线�?, 'quantity': 1},
                 ];
                 final item = items[index % items.length];
                 return _ItemTile(
@@ -159,7 +159,7 @@ class _BoxDetailPageState extends ConsumerState<BoxDetailPage> {
       builder: (context) {
         return AlertDialog(
           title: const Text('删除箱子'),
-          content: const Text('确定要删除这个箱子吗？此操作不可撤销。'),
+          content: const Text('确定要删除这个箱子吗？此操作不可撤销�?),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),

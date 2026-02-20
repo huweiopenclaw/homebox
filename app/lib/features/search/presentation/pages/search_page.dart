@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../core/theme/app_theme.dart';
-import '../providers/box_provider.dart';
+import '../../../../core/theme/app_theme.dart';
+import '../../providers/box_provider.dart';
 
 class SearchPage extends ConsumerStatefulWidget {
   const SearchPage({super.key});
@@ -73,7 +73,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
               children: [
                 const Icon(Icons.search_off, size: 64, color: Colors.grey),
                 const SizedBox(height: 16),
-                Text('未找到 "${_searchController.text}" 相关的物品'),
+                Text('未找�?"${_searchController.text}" 相关的物�?),
               ],
             ),
           );
@@ -117,7 +117,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
             children: [
               _buildSuggestionChip('围巾'),
               _buildSuggestionChip('护照'),
-              _buildSuggestionChip('充电器'),
+              _buildSuggestionChip('充电�?),
               _buildSuggestionChip('冬季衣物'),
               _buildSuggestionChip('工具'),
             ],
@@ -138,7 +138,7 @@ class _SearchPageState extends ConsumerState<SearchPage> {
           ),
           _buildExampleItem(
             question: '有什么冬季衣物？',
-            description: '按类别搜索',
+            description: '按类别搜�?,
           ),
         ],
       ),

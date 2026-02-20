@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../core/theme/app_theme.dart';
-import '../../../core/models/enums.dart';
+import '../../../../core/theme/app_theme.dart';
+import '../../../../core/models/enums.dart';
 
 class BoxOverviewPage extends ConsumerStatefulWidget {
   const BoxOverviewPage({super.key});
@@ -38,8 +38,8 @@ class _BoxOverviewPageState extends ConsumerState<BoxOverviewPage>
         bottom: TabBar(
           controller: _tabController,
           tabs: const [
-            Tab(text: '按房间'),
-            Tab(text: '按分类'),
+            Tab(text: '按房�?),
+            Tab(text: '按分�?),
           ],
         ),
       ),
@@ -106,7 +106,7 @@ class _BoxOverviewPageState extends ConsumerState<BoxOverviewPage>
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      '${room.boxCount} 个箱子',
+                      '${room.boxCount} 个箱�?,
                       style: TextStyle(
                         color: Colors.grey.shade600,
                       ),
@@ -159,7 +159,7 @@ class _BoxOverviewPageState extends ConsumerState<BoxOverviewPage>
                 style: const TextStyle(fontWeight: FontWeight.bold),
               ),
               Text(
-                '${category.itemCount} 件',
+                '${category.itemCount} �?,
                 style: TextStyle(
                   fontSize: 12,
                   color: Colors.grey.shade600,

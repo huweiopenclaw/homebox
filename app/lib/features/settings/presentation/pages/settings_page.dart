@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../core/theme/app_theme.dart';
+import '../../../../core/theme/app_theme.dart';
 
 class SettingsPage extends ConsumerStatefulWidget {
   const SettingsPage({super.key});
@@ -52,13 +52,13 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
             ListTile(
               leading: const Icon(Icons.restore),
               title: const Text('恢复数据'),
-              subtitle: const Text('从云端恢复数据'),
+              subtitle: const Text('从云端恢复数�?),
               onTap: () {},
             ),
             ListTile(
               leading: const Icon(Icons.delete_forever, color: AppColors.errorLight),
-              title: const Text('清除所有数据', style: TextStyle(color: AppColors.errorLight)),
-              subtitle: const Text('删除所有本地数据'),
+              title: const Text('清除所有数�?, style: TextStyle(color: AppColors.errorLight)),
+              subtitle: const Text('删除所有本地数�?),
               onTap: () {
                 _showClearDataConfirmDialog();
               },
@@ -110,7 +110,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('清除所有数据'),
+          title: const Text('清除所有数�?),
           content: const Text('此操作将删除所有本地存储的收纳数据，且不可恢复。确定要继续吗？'),
           actions: [
             TextButton(
@@ -121,7 +121,7 @@ class _SettingsPageState extends ConsumerState<SettingsPage> {
               onPressed: () {
                 Navigator.pop(context);
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('数据已清除')),
+                  const SnackBar(content: Text('数据已清�?)),
                 );
               },
               style: ElevatedButton.styleFrom(

@@ -44,7 +44,7 @@ class _AddBoxPageState extends ConsumerState<AddBoxPage> {
                 Expanded(
                   child: ElevatedButton(
                     onPressed: details.onStepContinue,
-                    child: Text(_currentStep == 2 ? '完成' : '下一步'),
+                    child: Text(_currentStep == 2 ? '完成' : '下一�?),
                   ),
                 ),
                 if (_currentStep > 0) ...[
@@ -52,7 +52,7 @@ class _AddBoxPageState extends ConsumerState<AddBoxPage> {
                   Expanded(
                     child: OutlinedButton(
                       onPressed: details.onStepCancel,
-                      child: const Text('上一步'),
+                      child: const Text('上一�?),
                     ),
                   ),
                 ],
@@ -86,7 +86,7 @@ class _AddBoxPageState extends ConsumerState<AddBoxPage> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Text(
-          '请拍摄箱子内的物品',
+          '请拍摄箱子内的物�?,
           style: Theme.of(context).textTheme.bodyLarge,
         ),
         const SizedBox(height: 16),
@@ -211,7 +211,7 @@ class _AddBoxPageState extends ConsumerState<AddBoxPage> {
         ),
         const SizedBox(height: 24),
         Text(
-          '识别的物品 (${_recognizedItems.length}件)',
+          '识别的物�?(${_recognizedItems.length}�?',
           style: Theme.of(context).textTheme.titleMedium,
         ),
         const SizedBox(height: 8),
@@ -256,7 +256,7 @@ class _AddBoxPageState extends ConsumerState<AddBoxPage> {
       _recognizedItems = [
         {'name': '红色毛衣', 'quantity': 2, 'confidence': 0.95},
         {'name': '灰色围巾', 'quantity': 1, 'confidence': 0.90},
-        {'name': '毛线帽', 'quantity': 1, 'confidence': 0.88},
+        {'name': '毛线�?, 'quantity': 1, 'confidence': 0.88},
       ];
     });
   }
@@ -296,7 +296,7 @@ class _AddBoxPageState extends ConsumerState<AddBoxPage> {
   void _saveBox() {
     // TODO: Implement save logic
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('箱子保存成功！')),
+      const SnackBar(content: Text('箱子保存成功�?)),
     );
     context.pop();
   }

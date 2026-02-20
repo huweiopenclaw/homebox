@@ -15,7 +15,7 @@ class _BoxListPageState extends ConsumerState<BoxListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('所有箱子'),
+        title: const Text('所有箱�?),
         actions: [
           IconButton(
             icon: const Icon(Icons.filter_list),
@@ -31,7 +31,7 @@ class _BoxListPageState extends ConsumerState<BoxListPage> {
         itemBuilder: (context, index) {
           return _BoxListTile(
             name: '箱子 ${index + 1}',
-            room: ['卧室', '客厅', '储藏室', '书房', '阳台'][index],
+            room: ['卧室', '客厅', '储藏�?, '书房', '阳台'][index],
             furniture: '衣柜',
             itemCount: 3 + index,
             onTap: () {
@@ -54,13 +54,13 @@ class _BoxListPageState extends ConsumerState<BoxListPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                '筛选',
+                '筛�?,
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 16),
               Wrap(
                 spacing: 8,
-                children: ['全部', '卧室', '客厅', '储藏室', '书房', '阳台']
+                children: ['全部', '卧室', '客厅', '储藏�?, '书房', '阳台']
                     .map((room) => FilterChip(
                           label: Text(room),
                           selected: room == '全部',
@@ -155,7 +155,7 @@ class _BoxListTile extends StatelessWidget {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     child: Text(
-                      '$itemCount 件',
+                      '$itemCount �?,
                       style: const TextStyle(
                         color: AppColors.secondaryLight,
                         fontWeight: FontWeight.bold,

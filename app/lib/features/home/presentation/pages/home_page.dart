@@ -77,7 +77,7 @@ class _BoxesTab extends ConsumerWidget {
         itemBuilder: (context, index) {
           return _BoxCard(
             name: '箱子 ${index + 1}',
-            room: ['卧室', '客厅', '储藏室'][index],
+            room: ['卧室', '客厅', '储藏�?][index],
             itemCount: 5 + index * 2,
             onTap: () {
               context.push('/boxes/$index');
@@ -146,7 +146,7 @@ class _BoxCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      '$room · $itemCount 件物品',
+                      '$room · $itemCount 件物�?,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                             color: AppColors.textSecondaryLight,
                           ),
@@ -179,7 +179,7 @@ class _ChatTabState extends ConsumerState<_ChatTab> {
     super.initState();
     _messages.add(_ChatMessage(
       isUser: false,
-      content: '你好！我是 HomeBox 智能收纳助手。你可以问我任何关于物品存放位置的问题，比如"我的围巾在哪里？"',
+      content: '你好！我�?HomeBox 智能收纳助手。你可以问我任何关于物品存放位置的问题，比如"我的围巾在哪里？"',
     ));
   }
 
@@ -253,7 +253,7 @@ class _ChatTabState extends ConsumerState<_ChatTab> {
       setState(() {
         _messages.add(_ChatMessage(
           isUser: false,
-          content: '让我帮你查找一下...（这是一个模拟回复，实际使用需要连接后端服务）',
+          content: '让我帮你查找一�?..（这是一个模拟回复，实际使用需要连接后端服务）',
         ));
       });
     });
@@ -324,7 +324,7 @@ class _ProfileTab extends ConsumerWidget {
           const SizedBox(height: 8),
           Center(
             child: Text(
-              '用户名',
+              '用户�?,
               style: Theme.of(context).textTheme.titleLarge,
             ),
           ),
@@ -332,8 +332,8 @@ class _ProfileTab extends ConsumerWidget {
           _buildListTile(
             context,
             icon: Icons.inventory_2,
-            title: '所有箱子',
-            subtitle: '3 个箱子',
+            title: '所有箱�?,
+            subtitle: '3 个箱�?,
           ),
           _buildListTile(
             context,
