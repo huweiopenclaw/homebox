@@ -6,7 +6,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from ...database import get_db
 from ...repositories.user import UserRepository
-from ...core.security import create_access_token, create_refresh_token
+from ...core.security import create_access_token, create_refresh_token, get_current_user
 from ...schemas import UserCreate, UserLogin, UserResponse, TokenResponse, MessageResponse
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
@@ -65,12 +65,10 @@ async def login(
 
 @router.get("/me", response_model=UserResponse)
 async def get_current_user_info(
-    current_user = Depends(...)
+    current_user = Depends(get_current_user)
 ):
     """Get current user info - requires auth dependency"""
-    from ...core.security import get_current_user
-    # This will be protected by auth middleware
-    pass
+    return current_user
 
 
 @router.post("/logout", response_model=MessageResponse)
