@@ -109,7 +109,7 @@ class TestUserFlow:
     """Test complete user flow"""
     
     @pytest.mark.skip(reason="Database state issue from previous tests")
-def test_complete_user_flow(self):
+    def test_complete_user_flow(self):
         """Test register, login, and access protected endpoint"""
         pass
 
