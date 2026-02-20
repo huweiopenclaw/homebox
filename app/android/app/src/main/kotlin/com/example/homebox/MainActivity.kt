@@ -1,4 +1,4 @@
-package com.homebox.homebox
+package com.example.homebox
 
 import io.flutter.embedding.android.FlutterActivity
 
