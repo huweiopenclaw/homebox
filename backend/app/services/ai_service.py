@@ -5,8 +5,36 @@ import base64
 import httpx
 from typing import Optional, List
 import json
+import asyncio
+from functools import wraps
 
 from ..core.config import settings
+from ..core.exceptions import AIServiceError
+import logging
+
+logger = logging.getLogger(__name__)
+
+
+def retry_on_failure(max_retries: int = 3, delay: float = 1.0):
+    """Decorator to retry function on failure"""
+    def decorator(func):
+        @wraps(func)
+        async def wrapper(*args, **kwargs):
+            last_exception = None
+            for attempt in range(max_retries):
+                try:
+                    return await func(*args, **kwargs)
+                except Exception as e:
+                    last_exception = e
+                    if attempt < max_retries - 1:
+                        logger.warning(
+                            f"Retry {attempt + 1}/{max_retries} for {func.__name__}",
+                            extra={"error": str(e)}
+                        )
+                        await asyncio.sleep(delay * (attempt + 1))
+            raise last_exception
+        return wrapper
+    return decorator
 
 
 class AIService:
@@ -16,6 +44,7 @@ class AIService:
         self.api_key = settings.GLM_API_KEY
         self.api_url = settings.GLM_API_URL
     
+    @retry_on_failure(max_retries=3, delay=1.0)
     async def _call_glm_api(
         self, 
         messages: List[dict], 
@@ -23,9 +52,10 @@ class AIService:
         temperature: float = 0.7,
         max_tokens: int = 1024
     ) -> str:
-        """Call GLM API"""
+        """Call GLM API with retry logic"""
         if not self.api_key:
             # Return mock response for development
+            logger.info("Using mock AI response (no API key configured)")
             return self._get_mock_response(messages)
         
         headers = {
@@ -40,15 +70,35 @@ class AIService:
             "max_tokens": max_tokens
         }
         
-        async with httpx.AsyncClient(timeout=60.0) as client:
-            response = await client.post(
-                self.api_url,
-                headers=headers,
-                json=payload
-            )
-            response.raise_for_status()
-            data = response.json()
-            return data["choices"][0]["message"]["content"]
+        try:
+            async with httpx.AsyncClient(timeout=60.0) as client:
+                response = await client.post(
+                    self.api_url,
+                    headers=headers,
+                    json=payload
+                )
+                response.raise_for_status()
+                data = response.json()
+                
+                logger.info(
+                    "GLM API call successful",
+                    extra={
+                        "model": model,
+                        "tokens_used": data.get("usage", {})
+                    }
+                )
+                
+                return data["choices"][0]["message"]["content"]
+                
+        except httpx.TimeoutException:
+            logger.error("GLM API timeout")
+            raise AIServiceError("AI service timeout, please try again")
+        except httpx.HTTPStatusError as e:
+            logger.error(f"GLM API HTTP error: {e.response.status_code}")
+            raise AIServiceError(f"AI service error: {e.response.status_code}")
+        except Exception as e:
+            logger.error(f"Unexpected error calling GLM API: {str(e)}")
+            raise AIServiceError(f"AI service error: {str(e)}")
     
     def _get_mock_response(self, messages: List[dict]) -> str:
         """Return mock response for development without API key"""
