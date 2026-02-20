@@ -1,54 +1,137 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+class Box {
+  final String id;
+  final String name;
+  final String? category;
+  final String? room;
+  final String? furniture;
+  final String? position;
+  final String? locationDescription;
+  final List<Item> items;
+  final DateTime createdAt;
+  final DateTime updatedAt;
 
-part 'box.freezed.dart';
-part 'box.g.dart';
+  const Box({
+    required this.id,
+    required this.name,
+    this.category,
+    this.room,
+    this.furniture,
+    this.position,
+    this.locationDescription,
+    this.items = const [],
+    required this.createdAt,
+    required this.updatedAt,
+  });
 
-@freezed
-class Box with _$Box {
-  const factory Box({
-    required String id,
-    required String name,
-    String? category,
-    String? room,
-    String? furniture,
-    String? position,
-    String? locationDescription,
-    String? itemPhotoUrl,
-    String? locPhotoUrl,
-    required List<Item> items,
-    required DateTime createdAt,
-    required DateTime updatedAt,
-  }) = _Box;
+  factory Box.fromJson(Map<String, dynamic> json) {
+    return Box(
+      id: json['id'] as String,
+      name: json['name'] as String,
+      category: json['category'] as String?,
+      room: json['room'] as String?,
+      furniture: json['furniture'] as String?,
+      position: json['position'] as String?,
+      locationDescription: json['location_description'] as String?,
+      items: (json['items'] as List<dynamic>?)
+              ?.map((e) => Item.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      createdAt: DateTime.parse(json['created_at'] as String),
+      updatedAt: DateTime.parse(json['updated_at'] as String),
+    );
+  }
 
-  factory Box.fromJson(Map<String, dynamic> json) => _$BoxFromJson(json);
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'category': category,
+      'room': room,
+      'furniture': furniture,
+      'position': position,
+      'location_description': locationDescription,
+      'items': items.map((e) => e.toJson()).toList(),
+      'created_at': createdAt.toIso8601String(),
+      'updated_at': updatedAt.toIso8601String(),
+    };
+  }
 }
 
-@freezed
-class Item with _$Item {
-  const factory Item({
-    required String id,
-    required String boxId,
-    required String name,
-    @Default(1) int quantity,
-    String? note,
-    DateTime? expiryDate,
-    double? confidence,
-    @Default(false) bool userModified,
-    required DateTime createdAt,
-  }) = _Item;
+class Item {
+  final String id;
+  final String name;
+  final int quantity;
+  final String? note;
+  final DateTime? expiryDate;
+  final double? confidence;
+  final DateTime createdAt;
+  final DateTime updatedAt;
 
-  factory Item.fromJson(Map<String, dynamic> json) => _$ItemFromJson(json);
+  const Item({
+    required this.id,
+    required this.name,
+    required this.quantity,
+    this.note,
+    this.expiryDate,
+    this.confidence,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory Item.fromJson(Map<String, dynamic> json) {
+    return Item(
+      id: json['id'] as String,
+      name: json['name'] as String,
+      quantity: json['quantity'] as int,
+      note: json['note'] as String?,
+      expiryDate: json['expiry_date'] != null
+          ? DateTime.parse(json['expiry_date'] as String)
+          : null,
+      confidence: (json['confidence'] as num?)?.toDouble(),
+      createdAt: DateTime.parse(json['created_at'] as String),
+      updatedAt: DateTime.parse(json['updated_at'] as String),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'quantity': quantity,
+      'note': note,
+      'expiry_date': expiryDate?.toIso8601String(),
+      'confidence': confidence,
+      'created_at': createdAt.toIso8601String(),
+      'updated_at': updatedAt.toIso8601String(),
+    };
+  }
 }
 
-@freezed
-class BoxCreate with _$BoxCreate {
-  const factory BoxCreate({
-    required String name,
-    String? category,
-    String? itemPhoto,
-    String? locPhoto,
-    @Default(true) bool autoRecognize,
-  }) = _BoxCreate;
+class BoxCreate {
+  final String name;
+  final String? category;
+  final String? room;
+  final String? furniture;
+  final String? position;
+  final String? locationDescription;
 
-  factory BoxCreate.fromJson(Map<String, dynamic> json) => _$BoxCreateFromJson(json);
+  const BoxCreate({
+    required this.name,
+    this.category,
+    this.room,
+    this.furniture,
+    this.position,
+    this.locationDescription,
+  });
+
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'category': category,
+      'room': room,
+      'furniture': furniture,
+      'position': position,
+      'location_description': locationDescription,
+    };
+  }
 }

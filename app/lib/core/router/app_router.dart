@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../features/auth/presentation/pages/login_page.dart';
 import '../../features/auth/presentation/pages/register_page.dart';
 import '../../features/box/presentation/pages/add_box_page.dart';
 import '../../features/box/presentation/pages/box_detail_page.dart';
-import '../../features/box/presentation/pages/box_list_page.dart';
+import '../../features/box/presentation/pages/box_overview_page.dart';
 import '../../features/chat/presentation/pages/chat_page.dart';
 import '../../features/home/presentation/pages/home_page.dart';
+import '../../features/search/presentation/pages/search_page.dart';
 import '../../features/settings/presentation/pages/settings_page.dart';
-
-part 'app_router.g.dart';
 
 enum AppRoute {
   home,
@@ -21,11 +20,11 @@ enum AppRoute {
   boxDetail,
   addBox,
   chat,
+  search,
   settings,
 }
 
-@riverpod
-GoRouter router(RouterRef ref) {
+final routerProvider = Provider<GoRouter>((ref) {
   return GoRouter(
     initialLocation: '/home',
     debugLogDiagnostics: true,
@@ -48,7 +47,7 @@ GoRouter router(RouterRef ref) {
       GoRoute(
         path: '/boxes',
         name: AppRoute.boxes.name,
-        builder: (context, state) => const BoxListPage(),
+        builder: (context, state) => const BoxOverviewPage(),
       ),
       GoRoute(
         path: '/boxes/:id',
@@ -69,6 +68,11 @@ GoRouter router(RouterRef ref) {
         builder: (context, state) => const ChatPage(),
       ),
       GoRoute(
+        path: '/search',
+        name: AppRoute.search.name,
+        builder: (context, state) => const SearchPage(),
+      ),
+      GoRoute(
         path: '/settings',
         name: AppRoute.settings.name,
         builder: (context, state) => const SettingsPage(),
@@ -80,4 +84,4 @@ GoRouter router(RouterRef ref) {
       ),
     ),
   );
-}
+});

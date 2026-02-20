@@ -1,30 +1,48 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+class User {
+  final String id;
+  final String email;
+  final String? nickname;
+  final String? avatarUrl;
 
-part 'user.freezed.dart';
-part 'user.g.dart';
+  const User({
+    required this.id,
+    required this.email,
+    this.nickname,
+    this.avatarUrl,
+  });
 
-@freezed
-class User with _$User {
-  const factory User({
-    required String id,
-    required String email,
-    String? nickname,
-    String? avatarUrl,
-    @Default('free') String subscriptionTier,
-    required DateTime createdAt,
-  }) = _User;
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      id: json['id'] as String,
+      email: json['email'] as String,
+      nickname: json['nickname'] as String?,
+      avatarUrl: json['avatar_url'] as String?,
+    );
+  }
 
-  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'email': email,
+      'nickname': nickname,
+      'avatar_url': avatarUrl,
+    };
+  }
 }
 
-@freezed
-class AuthTokens with _$AuthTokens {
-  const factory AuthTokens({
-    required String accessToken,
-    required String refreshToken,
-    @Default('bearer') String tokenType,
-    required int expiresIn,
-  }) = _AuthTokens;
+class AuthTokens {
+  final String accessToken;
+  final String refreshToken;
 
-  factory AuthTokens.fromJson(Map<String, dynamic> json) => _$AuthTokensFromJson(json);
+  const AuthTokens({
+    required this.accessToken,
+    required this.refreshToken,
+  });
+
+  factory AuthTokens.fromJson(Map<String, dynamic> json) {
+    return AuthTokens(
+      accessToken: json['access_token'] as String,
+      refreshToken: json['refresh_token'] as String,
+    );
+  }
 }

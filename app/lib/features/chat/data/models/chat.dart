@@ -1,31 +1,70 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+class ChatSession {
+  final String id;
+  final String? title;
+  final List<ChatMessage> messages;
+  final DateTime createdAt;
+  final DateTime updatedAt;
 
-part 'chat.freezed.dart';
-part 'chat.g.dart';
+  const ChatSession({
+    required this.id,
+    this.title,
+    this.messages = const [],
+    required this.createdAt,
+    required this.updatedAt,
+  });
 
-@freezed
-class ChatSession with _$ChatSession {
-  const factory ChatSession({
-    required String id,
-    String? title,
-    required List<ChatMessage> messages,
-    required DateTime createdAt,
-    required DateTime updatedAt,
-  }) = _ChatSession;
+  factory ChatSession.fromJson(Map<String, dynamic> json) {
+    return ChatSession(
+      id: json['id'] as String,
+      title: json['title'] as String?,
+      messages: (json['messages'] as List<dynamic>?)
+              ?.map((e) => ChatMessage.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          const [],
+      createdAt: DateTime.parse(json['created_at'] as String),
+      updatedAt: DateTime.parse(json['updated_at'] as String),
+    );
+  }
 
-  factory ChatSession.fromJson(Map<String, dynamic> json) => _$ChatSessionFromJson(json);
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'messages': messages.map((e) => e.toJson()).toList(),
+      'created_at': createdAt.toIso8601String(),
+      'updated_at': updatedAt.toIso8601String(),
+    };
+  }
 }
 
-@freezed
-class ChatMessage with _$ChatMessage {
-  const factory ChatMessage({
-    required String id,
-    required String sessionId,
-    required String role,
-    required String content,
-    List<String>? relatedBoxes,
-    required DateTime createdAt,
-  }) = _ChatMessage;
+class ChatMessage {
+  final String id;
+  final String role;
+  final String content;
+  final DateTime createdAt;
 
-  factory ChatMessage.fromJson(Map<String, dynamic> json) => _$ChatMessageFromJson(json);
+  const ChatMessage({
+    required this.id,
+    required this.role,
+    required this.content,
+    required this.createdAt,
+  });
+
+  factory ChatMessage.fromJson(Map<String, dynamic> json) {
+    return ChatMessage(
+      id: json['id'] as String,
+      role: json['role'] as String,
+      content: json['content'] as String,
+      createdAt: DateTime.parse(json['created_at'] as String),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'role': role,
+      'content': content,
+      'created_at': createdAt.toIso8601String(),
+    };
+  }
 }
